@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
+    status: { type: mongoose.SchemaTypes.String, default: 'Waiting For Approval'  },
     name: {type: mongoose.SchemaTypes.String, required: true, unique: true },
     creator: {type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'User' },
     creationDate: { type: mongoose.SchemaTypes.Date, default: Date.now },

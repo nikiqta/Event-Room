@@ -1,10 +1,17 @@
 const router = require('express').Router();
 const {body} = require('express-validator/check');
-const feedController = require('../controllers/feed');
+const eventController = require('../controllers/event');
+const commentController = require('../controllers/comment');
+const ticketController = require('../controllers/ticket');
 const isAuth = require('../middleware/is-auth');
 const Event = require('../models/EventSchema');
 
-router.get('/events', feedController.getEvents);
+router.post('/user/events', eventController.getUserEvents);
+router.post('/user/event/tickets', ticketController.getMyEventTickets);
+router.post('/user/tickets', ticketController.getUserTickets);
+
+router.get('/events', eventController.getApprovedEvents);
+router.get('/events/unapproved', eventController.getUnapprovedEvents);
 router.post('/event/create', [
     body('name')
         .trim()
@@ -43,7 +50,7 @@ router.post('/event/create', [
         .not()
         .isEmpty()
         .withMessage('Please enter an event image url')
-], feedController.createEvent);
+], eventController.createEvent);
 router.post('/event/edit', [
     body('name')
         .trim()
@@ -82,6 +89,25 @@ router.post('/event/edit', [
         .not()
         .isEmpty()
         .withMessage('Please enter an event image url')
-], feedController.editEvent);
-router.delete('/event/delete', feedController.removeEvent);
+], eventController.editEvent);
+router.delete('/event/delete', eventController.removeEvent);
+
+router.post('/comments', commentController.getEventComments);
+router.post('/comment/create', commentController.createComment);
+router.put('/comment/edit', commentController.editComment);
+router.delete('/comment/delete', commentController.deleteComment);
+
+router.post('/ticket/create', [
+    body('paymentCardNumber')
+        .trim()
+        .not()
+        .isEmpty()
+        .withMessage('Please enter a valide card number'),
+    body('seat')
+        .trim()
+        .not()
+        .isEmpty()
+        .withMessage('Please choose a seat'),
+], ticketController.createTicket);
+
 module.exports = router;

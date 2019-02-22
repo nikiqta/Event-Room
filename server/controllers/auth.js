@@ -30,7 +30,8 @@ module.exports = {
         avatar,
         email,
         hashedPassword,
-        salt
+        salt,
+        roles: ['User']
       }).then((user) => {
         res.status(201)
           .json({ message: 'User created!', userId: user._id, username: user.username });

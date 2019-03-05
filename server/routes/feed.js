@@ -6,13 +6,13 @@ const ticketController = require('../controllers/ticket');
 const isAuth = require('../middleware/is-auth');
 const Event = require('../models/EventSchema');
 
-router.post('/user/events', eventController.getUserEvents);
-router.post('/user/event/tickets', ticketController.getMyEventTickets);
-router.post('/user/tickets', ticketController.getUserTickets);
+router.post('/user/events', isAuth, eventController.getUserEvents);
+router.post('/user/event/tickets', isAuth, ticketController.getMyEventTickets);
+router.post('/user/tickets', isAuth, ticketController.getUserTickets);
 
 router.get('/events', eventController.getApprovedEvents);
-router.get('/events/unapproved', eventController.getUnapprovedEvents);
-router.post('/event/create', [
+router.get('/events/unapproved', isAuth, eventController.getUnapprovedEvents);
+router.post('/event/create', isAuth, [
     body('name')
         .trim()
         .not()
@@ -51,7 +51,7 @@ router.post('/event/create', [
         .isEmpty()
         .withMessage('Please enter an event image url')
 ], eventController.createEvent);
-router.post('/event/edit', [
+router.post('/event/edit', isAuth, [
     body('name')
         .trim()
         .not()
@@ -90,14 +90,14 @@ router.post('/event/edit', [
         .isEmpty()
         .withMessage('Please enter an event image url')
 ], eventController.editEvent);
-router.delete('/event/delete', eventController.removeEvent);
+router.delete('/event/delete', isAuth, eventController.removeEvent);
 
-router.post('/comments', commentController.getEventComments);
-router.post('/comment/create', commentController.createComment);
-router.put('/comment/edit', commentController.editComment);
-router.delete('/comment/delete', commentController.deleteComment);
+router.post('/comments', isAuth, commentController.getEventComments);
+router.post('/comment/create', isAuth, commentController.createComment);
+router.put('/comment/edit', isAuth, commentController.editComment);
+router.delete('/comment/delete', isAuth, commentController.deleteComment);
 
-router.post('/ticket/create', [
+router.post('/ticket/create', isAuth, [
     body('paymentCardNumber')
         .trim()
         .not()

@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
   const token = req.get('Authorization').split(' ')[1];
   let decodedToken;
   try {
-    decodedToken = jwt.verify(token, 'somesupersecret')
+    decodedToken = jwt.verify(token, 'AzObi4amma4ibOzA')
   } catch(error) {
     return res.status(401)
       .json({ message: 'Token is invalid.', error });

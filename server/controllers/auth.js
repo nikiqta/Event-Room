@@ -51,13 +51,13 @@ module.exports = {
     User.findOne({ username })
       .then((user) => {
         if (!user) {
-          const error = new Error('A user with this username could not be found');
+          const error = new Error('User Not found');
           error.statusCode = 401;
           throw error;
         }
 
         if(!user.authenticate(password)) {
-          const error = new Error('A user with this email could not be found');
+          const error = new Error('User not found!');
           error.statusCode = 401;
           throw error;
         }

@@ -11,11 +11,11 @@ class LoginPage extends Component {
       username: '',
       password: ''
     };
-    this.onChangeHanlder = this.onChangeHanlder.bind(this);
+    this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
-  onChangeHanlder(e) {
+  onChangeHandler(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -47,7 +47,7 @@ class LoginPage extends Component {
                 name="username"
                 value={this.state.username}
                 label="Username"
-                onChange={this.onChangeHanlder}
+                onChange={this.onChangeHandler}
                 error={false}
                 helperText={false}
               />
@@ -60,7 +60,7 @@ class LoginPage extends Component {
                 name="password"
                 value={this.state.password}
                 label="Password"
-                onChange={this.onChangeHanlder}
+                onChange={this.onChangeHandler}
                 error={false}
                 helperText={false}
               />

@@ -1,11 +1,13 @@
 import { userLogin, userRegister } from './../api/remote.js';
 import { register, login, ajaxError } from './actionCreators';
 
-function registerThunk(username, firstName, lastName, email, password) {
+function registerThunk(data) {
   return dispatch => {
-    return userRegister(username, password).then(json => {
+    return userRegister(data).then(json => {
       if (json.success) {
         dispatch(register(json));
+      }else {
+        dispatch(ajaxError(json));
       }
     });
   };

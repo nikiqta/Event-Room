@@ -34,7 +34,7 @@ module.exports = {
         roles: ['User']
       }).then((user) => {
         res.status(201)
-          .json({ message: 'User created!', userId: user._id, username: user.username, success: true });
+          .json({ message: 'User successful registration!', userId: user._id, username: user.username, success: true });
       })
       .catch((error) => {
         if (!error.statusCode) {

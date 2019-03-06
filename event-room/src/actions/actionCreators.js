@@ -9,7 +9,8 @@ import {
 
 export function register(data) {
     return {
-        type: REGISTER
+        type: REGISTER,
+        data
     }
 }
 

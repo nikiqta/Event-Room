@@ -1,17 +1,13 @@
 const host = 'http://localhost:9999/';
 
-async function userRegister(username, firstName, lastName, email, password) {
+async function userRegister(data) {
     const res = await fetch(`${host}auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username,
-            firstName,
-            lastName,
-            email,
-            password
+            ...data
         })
     });
     return await res.json();
@@ -36,4 +32,15 @@ async function fetchSearchPage(query) {
     return await res.json();
 }
 
-export {userRegister, userLogin, fetchSearchPage};
+async function fetchApprovedEvents() {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/events`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    return await res.json();
+}
+
+export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents};

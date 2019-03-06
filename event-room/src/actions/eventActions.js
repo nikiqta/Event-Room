@@ -1,15 +1,25 @@
-import { fetchSearchPage } from "../api/remote";
+import { fetchSearchPage, fetchApprovedEvents } from "../api/remote";
 import {
      ajaxError,
-     searchFetch
+    getApprovedEvents
 } from "./actionCreators";
+
+export function fetchEventsThunk() {
+    return async (dispatch) => {
+        try {
+            const data = await fetchApprovedEvents();
+            dispatch(getApprovedEvents(data));
+        } catch (error) {
+            dispatch(ajaxError(error));
+        }
+    }
+}
 
 export function fetchSearchThunk(query, page) {
     return async (dispatch) => {
-
         try {
-            const data = await fetchSearchPage(query, page);
-            dispatch(searchFetch(data));
+            const data = await fetchApprovedEvents();
+            dispatch(getApprovedEvents(data));
         } catch (error) {
             dispatch(ajaxError(error));
         }

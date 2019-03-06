@@ -2,12 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Header = props => {
-  //   const { logout, loggedIn, isAdmin } = props;
-  let loggedIn = false;
+  const { logout, loggedIn } = props;
   let isAdmin = false;
-  let logout = function() {
-    return true;
-  };
+
   return (
     <header className="container-fluid">
       <nav className="navbar navbar-expand-xl navbar-light bg-light">

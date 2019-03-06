@@ -18,10 +18,31 @@ import { logoutThunk } from './actions/authActions.js';
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       loggedIn: false
     };
+
+    this.onLogoutHandler = this.onLogoutHandler.bind(this);
     this.notify = this.notify.bind(this);
+  }
+
+  onLogoutHandler() {
+    this.setState({loggedIn: false});
+    this.props.logout();
+    this.props.history.push("/");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.user.success && this.props !== prevProps){
+      this.setState(({loggedIn: true}));
+    }
+  }
+
+  componentWillMount() {
+    if (localStorage.getItem('token')){
+      this.setState({loggedIn: true});
+    }
   }
 
   notify(message, type) {
@@ -32,22 +53,26 @@ class App extends Component {
   }
 
   render() {
+    const { loggedIn } = this.state;
     return (
       <div className="App">
-        <Header loggedIn={this.state.loggedIn} logout={this.onLogoutHandler} />
+        <Header loggedIn={ loggedIn } logout={this.onLogoutHandler} />
         <ToastContainer />
         <main>
           <Switch>
             <Route
               exact
               path="/"
-              render={props => <HomePage {...props} notify={this.notify} />}
+              render={props => <HomePage {...props} loggedIn={loggedIn} notify={this.notify} />}
             />
             <Route
               path="/login"
               render={props => <LoginPage {...props} notify={this.notify} />}
             />
-            {/* <Route path="/register" component={RegisterPage} /> */}
+            <Route
+                path="/register"
+                render={props => <RegisterPage {...props} notify={this.notify} />}
+            />
             <Route component={NotFound} />
           </Switch>
         </main>

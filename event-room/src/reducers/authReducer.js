@@ -1,26 +1,23 @@
-import {LOGIN, REGISTER, REDIRECTED} from "./../actions/actionTypes";
+import { LOGIN, REGISTER, AJAX_ERROR } from './../actions/actionTypes';
 
-export function registerReducer(state = {success: false}, action) {
-    switch (action.type) {
-        case REGISTER:
-          return  Object.assign({}, state, {success: true});
-        case LOGIN:
-            return  Object.assign({}, state, {success: false});
-        case REDIRECTED:
-            return  Object.assign({}, state, {success: false});
-        default:
-            return state;
-    }
+export function registerReducer(state = {}, action) {
+  switch (action.type) {
+    case REGISTER:
+      return Object.assign({}, state, action.data);
+    case AJAX_ERROR:
+      return Object.assign({}, state, action.msg);
+    default:
+      return state;
+  }
 }
 
-export function loginReducer(state = {success: false}, action) {
-    switch (action.type) {
-
-        case LOGIN:
-            return  Object.assign({}, state, {success: true});
-        case REDIRECTED:
-            return  Object.assign({}, state, {success: false});
-        default:
-            return state;
-    }
+export function loginReducer(state = {}, action) {
+  switch (action.type) {
+    case LOGIN:
+      return Object.assign({}, state, action.data);
+    case AJAX_ERROR:
+      return Object.assign({}, state, action.msg);
+    default:
+      return state;
+  }
 }

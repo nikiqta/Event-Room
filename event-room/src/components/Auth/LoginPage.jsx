@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { loginThunk } from '../../actions/authActions';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -16,33 +19,45 @@ class LoginPage extends Component {
   }
 
   onSubmitHandler(e) {
-    e.preventDefault(e);
+    e.preventDefault();
+    this.props.login(this.state.username, this.state.password);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.user.success) {
+      this.props.notify(this.props.user.message, 'success');
+      this.props.history.push('/');
+    } else if (this.props.user.message &&  prevProps !== this.props){
+      this.props.notify(this.props.user.message, 'error');
+    }
   }
 
   render() {
     return (
       <Fragment>
-        <div class="form-wrapper">
+        <div className="form-wrapper">
           <h1>Login</h1>
-          <form>
-            <div class="form-group">
-              <label for="email">E-mail</label>
+          <form onSubmit={this.onSubmitHandler}>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
               <input
                 type="text"
                 name="username"
                 id="username"
-                placeholder="Enter e-mail"
-                value=""
+                placeholder="enter username"
+                value={this.state.username}
+                onChange={this.onChangeHanlder}
               />
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Enter password"
-                value=""
+                placeholder="enter password"
+                value={this.state.password}
+                onChange={this.onChangeHanlder}
               />
             </div>
             <input type="submit" value="Login" />
@@ -53,4 +68,20 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+function mapStateToProps(state) {
+
+  return {
+    user: state.login
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    login: (username, password) => dispatch(loginThunk(username, password))
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(LoginPage));

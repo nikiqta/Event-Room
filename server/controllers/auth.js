@@ -34,7 +34,7 @@ module.exports = {
         roles: ['User']
       }).then((user) => {
         res.status(201)
-          .json({ message: 'User created!', userId: user._id, username: user.username });
+          .json({ message: 'User created!', userId: user._id, username: user.username, success: true });
       })
       .catch((error) => {
         if (!error.statusCode) {
@@ -51,13 +51,13 @@ module.exports = {
     User.findOne({ username })
       .then((user) => {
         if (!user) {
-          const error = new Error('User Not found');
+          const error = new Error('Incorrect Data! You must add existing username and password!');
           error.statusCode = 401;
           throw error;
         }
 
         if(!user.authenticate(password)) {
-          const error = new Error('User not found!');
+          const error = new Error('Incorrect Data! You must add existing username and password!');
           error.statusCode = 401;
           throw error;
         }
@@ -74,7 +74,8 @@ module.exports = {
              message: 'User successfully logged in!', 
              token, 
              userId: user._id.toString(),
-             username: user.username
+             username: user.username,
+             success: true 
            });
       })
       .catch(error => {

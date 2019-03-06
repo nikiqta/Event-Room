@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchSearchThunk } from "../../actions/eventActions";
 
 class HomePage extends Component {
   constructor(props) {
@@ -50,4 +52,16 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+function mapStateToProps(state) {
+  return {
+    user: state.login
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    fetchSearch: (query) => dispatch( fetchSearchThunk(query) )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

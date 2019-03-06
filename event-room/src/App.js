@@ -13,8 +13,7 @@ import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { ToastContainer, toast } from 'react-toastify';
-import {logoutThunk} from './actions/authActions.js';
-
+import { logoutThunk } from './actions/authActions.js';
 
 class App extends Component {
   constructor(props) {
@@ -22,16 +21,32 @@ class App extends Component {
     this.state = {
       loggedIn: false
     };
+    this.notify = this.notify.bind(this);
+  }
+
+  notify(message, type) {
+    toast[type](message, {
+      closeButton: false,
+      position: 'top-center'
+    });
   }
 
   render() {
     return (
       <div className="App">
         <Header loggedIn={this.state.loggedIn} logout={this.onLogoutHandler} />
+        <ToastContainer />
         <main>
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/login" component={LoginPage} />
+            <Route
+              exact
+              path="/"
+              render={props => <HomePage {...props} notify={this.notify} />}
+            />
+            <Route
+              path="/login"
+              render={props => <LoginPage {...props} notify={this.notify} />}
+            />
             {/* <Route path="/register" component={RegisterPage} /> */}
             <Route component={NotFound} />
           </Switch>
@@ -44,14 +59,19 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    loginSuccess: state.login.success
-  }
+    user: state.login
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     logout: () => dispatch(logoutThunk())
-  }
+  };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);

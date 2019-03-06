@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { TextField } from '@material-ui/core';
 import { loginThunk } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -27,7 +28,7 @@ class LoginPage extends Component {
     if (this.props.user.success) {
       this.props.notify(this.props.user.message, 'success');
       this.props.history.push('/');
-    } else if (this.props.user.message &&  prevProps !== this.props){
+    } else if (this.props.user.message && prevProps !== this.props) {
       this.props.notify(this.props.user.message, 'error');
     }
   }
@@ -39,25 +40,29 @@ class LoginPage extends Component {
           <h1>Login</h1>
           <form onSubmit={this.onSubmitHandler}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input
+              <TextField
+                className="inputFieldsWidth"
+                id="username"
                 type="text"
                 name="username"
-                id="username"
-                placeholder="enter username"
                 value={this.state.username}
+                label="Username"
                 onChange={this.onChangeHanlder}
+                error={false}
+                helperText={false}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
+              <TextField
+                className="inputFieldsWidth"
+                id="password"
                 type="password"
                 name="password"
-                id="password"
-                placeholder="enter password"
                 value={this.state.password}
+                label="Password"
                 onChange={this.onChangeHanlder}
+                error={false}
+                helperText={false}
               />
             </div>
             <input type="submit" value="Login" />
@@ -69,7 +74,6 @@ class LoginPage extends Component {
 }
 
 function mapStateToProps(state) {
-
   return {
     user: state.login
   };

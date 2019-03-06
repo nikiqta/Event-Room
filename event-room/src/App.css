@@ -117,10 +117,7 @@ div.welcome p {
 
 .form-wrapper input{
    padding: 10px 5px;
-   outline: none;
-   border-radius: 0.5em;
-   border: 1px solid rgb(88, 182, 92);   
-   
+   outline: none; 
 }
 
 

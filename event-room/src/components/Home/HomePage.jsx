@@ -35,7 +35,7 @@ class HomePage extends Component {
             { loggedIn &&
               <form
                   onSubmit={this.onSubmitHandler}
-                  className="form-inline my-2 my-lg-0"
+                  className="form-inline mb-5"
               >
                 <input
                     className="form-control mr-sm-2"

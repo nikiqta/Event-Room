@@ -43,4 +43,20 @@ async function fetchApprovedEvents() {
     return await res.json();
 }
 
-export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents};
+async function createEvent(data) {
+    debugger;
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/event/create`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+           ...data
+        })
+    });
+    return await res.json();
+}
+
+export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents, createEvent};

@@ -3,7 +3,7 @@ const Comment = require('../models/CommentSchema');
 const Ticket = require('../models/TicketSchema');
 
 module.exports = {
-  getUserEvents: (req, res) => {
+  getUserEvents: (req, res, next) => {
     const { id } = req.body;
 
     Event.find({ creator: id })
@@ -19,7 +19,7 @@ module.exports = {
         next(error);
       });
   },
-  getApprovedEvents: (req, res) => {
+  getApprovedEvents: (req, res, next) => {
     Event.find()
       .where('status')
       .ne('Waiting For Approval')
@@ -35,7 +35,7 @@ module.exports = {
         next(error);
       });
   },
-  getUnapprovedEvents: (req, res) => {
+  getUnapprovedEvents: (req, res, next) => {
     Event.find()
       .where('status')
       .ne('Approved')
@@ -51,7 +51,7 @@ module.exports = {
         next(error);
       });
   },
-  createEvent: (req, res) => {
+  createEvent: (req, res, next) => {
     const eventObj = req.body;
     Event.create(eventObj)
       .then(event => {
@@ -67,7 +67,7 @@ module.exports = {
         next(error);
       });
   },
-  editEvent: (req, res) => {
+  editEvent: (req, res, next) => {
     const eventObj = req.body;
     const { id } = req.body;
     Event.findByIdAndUpdate(id, {
@@ -85,7 +85,7 @@ module.exports = {
         next(error);
       });
   },
-  removeEvent: (req, res) => {
+  removeEvent: (req, res, next) => {
     const { id } = req.body;
     Event.findByIdAndRemove(id)
       .then(event => {

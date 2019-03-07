@@ -14,6 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { logoutThunk } from './actions/authActions.js';
+import DetailsPage from './components/Details/DetailsPage';
+import TicketsPage from './components/Tickets/TicketsPage';
+import CreatePage from './components/Create/CreatePage';
 
 class App extends Component {
   constructor(props) {
@@ -28,20 +31,20 @@ class App extends Component {
   }
 
   onLogoutHandler() {
-    this.setState({loggedIn: false});
+    this.setState({ loggedIn: false });
     this.props.logout();
-    this.props.history.push("/");
+    this.props.history.push('/');
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.user.success && this.props !== prevProps){
-      this.setState(({loggedIn: true}));
+    if (this.props.user.success && this.props !== prevProps) {
+      this.setState({ loggedIn: true });
     }
   }
 
   componentWillMount() {
-    if (localStorage.getItem('token')){
-      this.setState({loggedIn: true});
+    if (localStorage.getItem('token')) {
+      this.setState({ loggedIn: true });
     }
   }
 
@@ -56,27 +59,35 @@ class App extends Component {
     const { loggedIn } = this.state;
     return (
       <div className="App">
-        <Header loggedIn={ loggedIn } logout={this.onLogoutHandler} />
+        <Header loggedIn={loggedIn} logout={this.onLogoutHandler} />
         <ToastContainer />
-        <main>
+        <main style={{ height: 'auto' }}>
           <Switch>
             <Route
               exact
               path="/"
-              render={props => <HomePage {...props} loggedIn={loggedIn} notify={this.notify} />}
+              render={props => (
+                <HomePage {...props} loggedIn={loggedIn} notify={this.notify} />
+              )}
             />
             <Route
               path="/login"
               render={props => <LoginPage {...props} notify={this.notify} />}
             />
             <Route
-                path="/register"
-                render={props => <RegisterPage {...props} notify={this.notify} />}
+              path="/register"
+              render={props => <RegisterPage {...props} notify={this.notify} />}
             />
+            <Route
+              path="/create"
+              render={props => <CreatePage {...props} notify={this.notify} />}
+            />
+            <Route path="/details/:id" component={DetailsPage} />
+            <Route path="/tickets/:id" component={TicketsPage} />
             <Route component={NotFound} />
           </Switch>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

@@ -4,6 +4,7 @@ import {
   REDIRECTED,
   FETCH_APPROVED_EVENTS,
   FETCH_SEARCH_EVENTS,
+  CREATE_EVENT,
   AJAX_ERROR
 } from './actionTypes';
 
@@ -44,6 +45,13 @@ export function searchFetch(data) {
 export function getApprovedEvents(data) {
     return {
         type: FETCH_APPROVED_EVENTS,
+        data
+    }
+}
+
+export function createNewEvent(data) {
+    return {
+        type: CREATE_EVENT,
         data
     }
 }

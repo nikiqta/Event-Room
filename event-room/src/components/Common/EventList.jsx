@@ -2,9 +2,9 @@ import React from 'react';
 import EventCard from "./EventCard";
 
 const EventList = (props) => {
-    const {events} = props;
+    const {events, handleDetails} = props;
     return (
-            <div style={{margin: 'auto'}} className="row space-top mr-auto container">
+            <div className="row space-top mr-auto container">
                 {events.length && events.map(event => {
                     return (
                         <EventCard

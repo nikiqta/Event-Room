@@ -4,8 +4,7 @@ const Ticket = require('../models/TicketSchema');
 
 module.exports = {
   getUserEvents: (req, res, next) => {
-    const { id } = req.body;
-
+    const { id } = req.params;
     Event.find({ creator: id })
       .then(events => {
         res

@@ -34,7 +34,7 @@ const Header = props => {
               </NavLink>
             </li>
           )}
-          {loggedIn && (
+          {isAdmin && (
             <li className="nav-item">
               <NavLink
                 to="/events"
@@ -65,31 +65,24 @@ const Header = props => {
               </NavLink>
             </li>
           )}
-          {loggedIn && (
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
+          {(loggedIn && !isAdmin) && (
+            <li className="nav-item">
+              <NavLink
+                to="/myTickets"
+                className="nav-link"
               >
-                User Options
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink
-                  to="/mytickets"
-                  className="nav-link"
-                >
-                  My tickets
-                </NavLink>
-                <NavLink to="/myevents">
-                  My Events
-                </NavLink>
-                <div className="dropdown-divider" />
-              </div>
+                My Tickets
+              </NavLink>
+            </li>
+          )}
+                    {(loggedIn && !isAdmin) && (
+            <li className="nav-item">
+              <NavLink
+                to="/myEvents"
+                className="nav-link"
+              >
+                My Events
+              </NavLink>
             </li>
           )}
           {loggedIn && (

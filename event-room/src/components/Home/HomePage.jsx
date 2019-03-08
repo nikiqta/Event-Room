@@ -7,6 +7,7 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: localStorage.getItem('username') !== '',
       query: ''
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -26,7 +27,8 @@ class HomePage extends Component {
   }
 
   render() {
-    const { loggedIn, events } = this.props;
+    const { loggedIn } = this.props;
+    const events = this.props.events.events || [];
     return (
       <div className="container">
         <div className="row space-top">

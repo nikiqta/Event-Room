@@ -28,7 +28,6 @@ class CreatePage extends Component {
 
 async onSubmitHandler(e) {
     e.preventDefault();
-    debugger;
     const data = {
         creator: this.props.state.login.userId || localStorage.getItem('userId'),
         name: this.state.name,
@@ -38,15 +37,12 @@ async onSubmitHandler(e) {
         description: this.state.description,
         imageUrl: this.state.imageUrl
     }
-
-    debugger;
     
     try{
         await this.props.createEvent(data);
         this.props.notify('Event Created Successfuly', 'success');
         this.props.history.push('/');
     } catch (err) {
-        debugger;
         this.props.notify(err.message, 'error');
     }
 

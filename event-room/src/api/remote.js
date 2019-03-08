@@ -44,7 +44,6 @@ async function fetchApprovedEvents() {
 }
 
 async function createEvent(data) {
-    debugger;
     const token = localStorage.getItem('token');
     const res = await fetch(`${host}feed/event/create`, {
         method: 'POST',
@@ -59,4 +58,27 @@ async function createEvent(data) {
     return await res.json();
 }
 
-export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents, createEvent};
+async function fetchUserEvents(userId) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/user/events/${userId}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    return await res.json();
+}
+
+async function fetchUserTickets(userId) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/user/tickets/${userId}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    return await res.json();
+}
+
+
+export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets };

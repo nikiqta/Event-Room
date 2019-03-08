@@ -6,9 +6,9 @@ const ticketController = require('../controllers/ticket');
 const isAuth = require('../middleware/is-auth');
 const Event = require('../models/EventSchema');
 
-router.post('/user/events', isAuth, eventController.getUserEvents);
+router.get('/user/events/:id', isAuth, eventController.getUserEvents);
 router.post('/user/event/tickets', isAuth, ticketController.getMyEventTickets);
-router.post('/user/tickets', isAuth, ticketController.getUserTickets);
+router.get('/user/tickets/:id', ticketController.getUserTickets);
 
 router.get('/events', eventController.getApprovedEvents);
 router.get('/events/unapproved', isAuth, eventController.getUnapprovedEvents);

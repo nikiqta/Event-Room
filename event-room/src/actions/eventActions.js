@@ -1,8 +1,10 @@
-import { fetchSearchPage, fetchApprovedEvents, createEvent } from "../api/remote";
+import { fetchSearchPage, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets } from "../api/remote";
 import {
      ajaxError,
     getApprovedEvents,
-    createNewEvent
+    createNewEvent,
+    getUserEvents,
+    getUserTickets
 } from "./actionCreators";
 
 export function fetchEventsThunk() {
@@ -28,11 +30,32 @@ export function fetchSearchThunk() {
 }
 
 export function createEventThunk(props) {
-    debugger;
     return async (dispatch) => {
         try {
             const data = await createEvent(props);
             dispatch(createNewEvent(data));
+        } catch (error) {
+            dispatch(ajaxError(error));
+        }
+    }
+}
+
+export function getUserEventsThunk(userId) {
+    return async (dispatch) => {
+        try {
+            const data = await fetchUserEvents(userId);
+            dispatch(getUserEvents(data));
+        } catch (error) {
+            dispatch(ajaxError(error));
+        }
+    }
+}
+
+export function getUserTicketsThunk(userId) {
+    return async (dispatch) => {
+        try {
+            const data = await fetchUserTickets(userId);
+            dispatch(getUserTickets(data));
         } catch (error) {
             dispatch(ajaxError(error));
         }

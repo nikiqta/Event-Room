@@ -17,13 +17,15 @@ import { logoutThunk } from './actions/authActions.js';
 import DetailsPage from './components/Details/DetailsPage';
 import TicketsPage from './components/Tickets/TicketsPage';
 import CreatePage from './components/Create/CreatePage';
+import MyEvents from './components/User/MyEvents';
+import MyTickets from './components/User/MyTickets';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loggedIn: false
+      loggedIn: localStorage.getItem('username')
     };
 
     this.onLogoutHandler = this.onLogoutHandler.bind(this);
@@ -82,8 +84,16 @@ class App extends Component {
               path="/create"
               render={props => <CreatePage {...props} notify={this.notify} />}
             />
+                        <Route
+              path="/myEvents"
+              render={props => <MyEvents {...props} notify={this.notify} />}
+            />
+                        <Route
+              path="/myTickets"
+              render={props => <MyTickets {...props} notify={this.notify} />}
+            />
             <Route path="/details/:id" component={DetailsPage} />
-            <Route path="/tickets/:id" component={TicketsPage} />
+            <Route path="/event/tickets/:id" component={TicketsPage} />
             <Route component={NotFound} />
           </Switch>
         </main>

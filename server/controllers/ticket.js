@@ -3,7 +3,7 @@ const Event = require('../models/EventSchema');
 
 module.exports = {
   getMyEventTickets: (req, res) => {
-    const { relatedEvent } = req.body;
+    const { relatedEvent } = req.params;
 
     Ticket.find({ relatedEvent: relatedEvent })
       .populate('owner')

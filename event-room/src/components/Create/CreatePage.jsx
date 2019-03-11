@@ -36,7 +36,7 @@ async onSubmitHandler(e) {
         availableSeats: this.state.availableSeats,
         description: this.state.description,
         imageUrl: this.state.imageUrl
-    }
+    };
     
     try{
         await this.props.createEvent(data);

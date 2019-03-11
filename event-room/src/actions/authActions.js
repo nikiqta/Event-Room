@@ -20,6 +20,7 @@ function loginThunk(username, password) {
         localStorage.setItem('token', json.token);
         localStorage.setItem('username', json.username);
         localStorage.setItem('userId', json.userId);
+        localStorage.setItem('isAdmin', json.isAdmin);
         dispatch(login(json));
       } else {
         dispatch(ajaxError(json));

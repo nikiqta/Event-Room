@@ -36,9 +36,9 @@ class LoginPage extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.user.success) {
+        if (this.props.user.success && this.props.user && prevProps.user) {
             this.props.notify(this.props.user.message, 'success');
-            this.props.history.push('/');
+            this.props.history.push('/login');
         } else if (this.props.user.message && prevProps !== this.props) {
             this.props.notify(this.props.user.errors[0].msg, 'error');
         }
@@ -48,7 +48,7 @@ class LoginPage extends Component {
         return (
             <Fragment>
                 <div className="form-wrapper">
-                    <h1>Login</h1>
+                    <h1>Register</h1>
                     <form onSubmit={this.onSubmitHandler}>
                         <div className="form-group">
                             <TextField

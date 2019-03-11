@@ -43,6 +43,17 @@ async function fetchApprovedEvents() {
     return await res.json();
 }
 
+async function fetchPendingEvents() {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/events/unapproved`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    return await res.json();
+}
+
 async function createEvent(data) {
     const token = localStorage.getItem('token');
     const res = await fetch(`${host}feed/event/create`, {
@@ -81,4 +92,4 @@ async function fetchUserTickets(userId) {
 }
 
 
-export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets };
+export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets, fetchPendingEvents };

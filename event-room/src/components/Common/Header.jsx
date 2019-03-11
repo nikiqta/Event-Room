@@ -2,8 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Header = props => {
-  const { logout, loggedIn } = props;
-  let isAdmin = false;
+  const { logout, loggedIn, isAdmin } = props;
 
   return (
     <header className="container-fluid">
@@ -45,7 +44,7 @@ const Header = props => {
               </NavLink>
             </li>
           )}
-          {loggedIn && (
+          {loggedIn && !isAdmin && (
             <li className="nav-item">
               <NavLink
                 to="/create/event"

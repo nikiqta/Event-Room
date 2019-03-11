@@ -1,13 +1,14 @@
 import {
-  REGISTER,
-  LOGIN,
-  REDIRECTED,
-  FETCH_APPROVED_EVENTS,
-  FETCH_SEARCH_EVENTS,
-  FETCH_USER_EVENTS,
-  FETCH_USER_TICKETS,
-  CREATE_EVENT,
-  AJAX_ERROR
+    REGISTER,
+    LOGIN,
+    REDIRECTED,
+    FETCH_APPROVED_EVENTS,
+    FETCH_PENDING_EVENTS,
+    FETCH_SEARCH_EVENTS,
+    FETCH_USER_EVENTS,
+    FETCH_USER_TICKETS,
+    CREATE_EVENT,
+    AJAX_ERROR
 } from './actionTypes';
 
 export function register(data) {
@@ -51,6 +52,13 @@ export function getApprovedEvents(data) {
     }
 }
 
+export function getPendingEvents(data) {
+    return {
+        type: FETCH_PENDING_EVENTS,
+        data
+    }
+}
+
 export function createNewEvent(data) {
     return {
         type: CREATE_EVENT,
@@ -58,14 +66,14 @@ export function createNewEvent(data) {
     }
 }
 
-export function getUserEvents(data){
+export function getUserEvents(data) {
     return {
         type: FETCH_USER_EVENTS,
         data
     }
 }
 
-export function getUserTickets(data){
+export function getUserTickets(data) {
     return {
         type: FETCH_USER_TICKETS,
         data

@@ -1,7 +1,8 @@
-import { fetchSearchPage, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets } from "../api/remote";
+import { fetchSearchPage, fetchPendingEvents, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets } from "../api/remote";
 import {
      ajaxError,
     getApprovedEvents,
+    getPendingEvents,
     createNewEvent,
     getUserEvents,
     getUserTickets
@@ -12,6 +13,17 @@ export function fetchEventsThunk() {
         try {
             const data = await fetchApprovedEvents();
             dispatch(getApprovedEvents(data));
+        } catch (error) {
+            dispatch(ajaxError(error));
+        }
+    }
+}
+
+export function fetchPendingEventsThunk() {
+    return async (dispatch) => {
+        try {
+            const data = await fetchPendingEvents();
+            dispatch(getPendingEvents(data));
         } catch (error) {
             dispatch(ajaxError(error));
         }

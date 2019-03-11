@@ -25,7 +25,7 @@ class LoginPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.user.success) {
+    if (this.props.user.success && this.props.user !== prevProps.user) {
       this.props.notify(this.props.user.message, 'success');
       this.props.history.push('/');
     } else if (this.props.user.message && prevProps !== this.props) {

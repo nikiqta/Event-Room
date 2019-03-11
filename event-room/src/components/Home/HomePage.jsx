@@ -7,7 +7,8 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: localStorage.getItem('username') !== '',
+      isForApproval: false,
+//      loggedIn: localStorage.getItem('username') !== '',
       query: ''
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -27,7 +28,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, isAdmin } = this.props;
     const events = this.props.events.events || [];
     return (
       <div className="container">
@@ -54,7 +55,11 @@ class HomePage extends Component {
                 />
               </form>
             }
-            <EventList events={ events }/>
+            <EventList
+                isForApproval={this.state.isForApproval}
+                loggedIn={loggedIn}
+                isAdmin={isAdmin}
+                events={ events }/>
           </div>
         </div>
       </div>

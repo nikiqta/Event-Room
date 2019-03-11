@@ -69,12 +69,15 @@ module.exports = {
         , 'AzObi4amma4ibOzA'
         , { expiresIn: '1h' });
 
+        console.log(user);
+
          res.status(200).json(
            { 
              message: 'User successfully logged in!', 
              token, 
              userId: user._id.toString(),
              username: user.username,
+             isAdmin: user.roles.includes('Admin'),
              success: true 
            });
       })

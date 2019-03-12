@@ -1,12 +1,24 @@
-import { fetchSearchPage, fetchPendingEvents, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets } from "../api/remote";
+import { fetchEvent, fetchSearchPage, fetchPendingEvents, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets } from "../api/remote";
 import {
      ajaxError,
     getApprovedEvents,
     getPendingEvents,
     createNewEvent,
     getUserEvents,
-    getUserTickets
+    getUserTickets,
+    getEvent
 } from "./actionCreators";
+
+export function getEventThunk(eventId) {
+    return async (dispatch) => {
+        try {
+            const data = await fetchEvent(eventId);
+            dispatch(getEvent(data));
+        } catch (error) {
+            dispatch(ajaxError(error));
+        }
+    }
+}
 
 export function fetchEventsThunk() {
     return async (dispatch) => {

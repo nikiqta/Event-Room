@@ -58,6 +58,8 @@ class App extends Component {
                 loggedIn: true,
                 isAdmin: localStorage.getItem('isAdmin')
             });
+        } else {
+            this.props.history.push('/login');
         }
     }
 
@@ -93,7 +95,7 @@ class App extends Component {
                         />
                         <Route
                             path="/create/event"
-                            render={props => <CreatePage {...props} notify={this.notify}/>}
+                            render={props => <CreatePage isAdmin={isAdmin} loggedIn={loggedIn} {...props} notify={this.notify}/>}
                         />
                         <Route
                             path="/myEvents"
@@ -108,7 +110,10 @@ class App extends Component {
                             path="/myTickets"
                             render={props => <MyTickets {...props} notify={this.notify}/>}
                         />
-                        <Route path="/details/:id" component={DetailsPage}/>
+                        <Route
+                            path="/details/:type/:id"
+                            render={props => <DetailsPage isAdmin={isAdmin} loggedIn={loggedIn} {...props} notify={this.notify}/>}
+                        />
                         <Route path="/event/tickets/:id" component={TicketsPage}/>
                         <Route component={NotFound}/>
                     </Switch>

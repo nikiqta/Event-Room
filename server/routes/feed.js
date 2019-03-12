@@ -10,6 +10,7 @@ router.get('/user/events/:id', isAuth, eventController.getUserEvents);
 router.post('/user/event/tickets', isAuth, ticketController.getMyEventTickets);
 router.get('/user/tickets/:id', ticketController.getUserTickets);
 
+router.get('/event/:id', eventController.getEventById);
 router.get('/events', eventController.getApprovedEvents);
 router.get('/events/unapproved', isAuth, eventController.getUnapprovedEvents);
 router.post('/event/create', isAuth, [

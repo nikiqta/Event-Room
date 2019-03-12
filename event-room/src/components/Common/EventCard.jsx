@@ -8,6 +8,7 @@ const EventCard = props => {
     const {
         name,
         eventDate,
+        status,
         ticketPrice,
         creator,
         description,
@@ -21,6 +22,7 @@ const EventCard = props => {
     const id = props.data._id;
     const subDescription = description.substring(0, 50);
     const isUserCreator = creator === userId;
+    const approvedEvent = status === 'Waiting For Approval';
     return (
         <div style={{margin: 'auto'}} className="m-2 card col-3">
             <div className="m-auto text-center">
@@ -43,22 +45,22 @@ const EventCard = props => {
                         Seats: {availableSeats}</li>
                 </ul>
                 {
-                    !isForApproval &&
+                    !isForApproval && !approvedEvent &&
                 <div className="card-body text-center">
-                    <Link to={`/details/${id}`} className="btn btn-info m-1">Details</Link>
-                    { loggedIn && !isAdmin && !isUserCreator  &&
-                    <Link to={`/event/tickets/${id}`} className="btn btn-success m-1">Tickets</Link>
-                    }
+                    <Link to={`/details/${'approved'}/${id}`} className="btn btn-info m-1">Details</Link>
                     {isUserCreator  && <Link to={`/delete/${id}`} className="btn btn-danger m-1">Delete</Link>}
                     {isUserCreator  && <Link to={`/edit/${id}`} className="btn btn-warning m-1">Edit</Link>}
                 </div> }
                 {
                     isForApproval &&
                     <div className="card-body text-center">
-                        <Link to={`/details/${id}`} className="btn btn-info m-1">Details</Link>
+                        <Link to={`/details/${'unapproved'}/${id}`} className="btn btn-info m-1">Details</Link>
                         <Link to={`/approve/event/${id}`} className="btn btn-success m-1">Approve</Link>
                         <Link to={`/remove/event/${id}`} className="btn btn-danger m-1">Remove</Link>
                     </div>
+                }
+                { approvedEvent && !isAdmin &&
+                <div className="font-weight-bold text-danger my-5"> Waiting For Approval!</div>
                 }
             </div>
         </div>

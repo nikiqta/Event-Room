@@ -3,6 +3,21 @@ const Comment = require('../models/CommentSchema');
 const Ticket = require('../models/TicketSchema');
 
 module.exports = {
+  getEventById: (req, res, next) => {
+    const { id } = req.params;
+    Event.findById(id)
+        .then(event => {
+          res
+              .status(200)
+              .json({ message: 'Fetched event successfully.', event });
+        })
+        .catch(error => {
+          if (!error.statusCode) {
+            error.statusCode = 500;
+          }
+          next(error);
+        });
+  },
   getUserEvents: (req, res, next) => {
     const { id } = req.params;
     Event.find({ creator: id })

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserEventsThunk } from "../../actions/eventActions";
+import EventList from "../Common/EventList";
 
 class MyEvents extends Component {
   constructor(props) {
@@ -11,13 +12,26 @@ class MyEvents extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserEvents(localStorage.getItem('userId'));
+      const userId = localStorage.getItem('userId');
+    this.props.getUserEvents(userId);
   }
 
   render() {
       const userEvents = this.props.userEvents || [];
+      const { isAdmin, loggedIn } = this.props;
       return (
-          <h1>My Events</h1>
+          <div className="container">
+              <div className="row space-top">
+                  <div className="col-md-12">
+                      <h1>Welcome to Your Events</h1>
+                      <EventList
+                          isForApproval={false}
+                          loggedIn={loggedIn}
+                          isAdmin={isAdmin}
+                          events={ userEvents }/>
+                  </div>
+              </div>
+          </div>
       );
   }
 }

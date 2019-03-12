@@ -8,8 +8,15 @@ import {
     FETCH_USER_EVENTS,
     FETCH_USER_TICKETS,
     CREATE_EVENT,
-    AJAX_ERROR
+    AJAX_ERROR, FETCH_EVENT_BY_ID
 } from './actionTypes';
+
+export function getEvent(data) {
+    return {
+        type: FETCH_EVENT_BY_ID,
+        data
+    }
+}
 
 export function register(data) {
     return {

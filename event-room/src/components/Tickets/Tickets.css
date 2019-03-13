@@ -1,0 +1,24 @@
+.seat {
+    width: 140px;
+    height: 135px;
+    color: white;
+    float: left;
+    background-image: url("../../pictures/image.jpg");
+    margin: 3px;
+    list-style-type: none;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+.seat > label {
+    height: 100px;
+    width: 100px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+}
+
+.seat :hover{
+    cursor: pointer;
+}

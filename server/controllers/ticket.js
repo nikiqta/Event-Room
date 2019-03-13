@@ -20,9 +20,10 @@ module.exports = {
       });
   },
   getUserTickets: (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
     Ticket.find({ owner: id })
+        .populate('relatedEvent')
       .then(tickets => {
         res
           .status(200)

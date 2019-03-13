@@ -24,11 +24,18 @@ class MyEvents extends Component {
               <div className="row space-top">
                   <div className="col-md-12">
                       <h1>Welcome to Your Events</h1>
+                      {!userEvents.length &&
+                      <h3 className="text-center m-auto">There Currently No Events...!</h3>
+                      }
+                      {userEvents.length > 0 &&
                       <EventList
                           isForApproval={false}
                           loggedIn={loggedIn}
                           isAdmin={isAdmin}
-                          events={ userEvents }/>
+                          events={ userEvents }
+                      />
+                      }
+
                   </div>
               </div>
           </div>

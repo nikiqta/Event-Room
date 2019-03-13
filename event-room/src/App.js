@@ -114,7 +114,10 @@ class App extends Component {
                             path="/details/:type/:id"
                             render={props => <DetailsPage isAdmin={isAdmin} loggedIn={loggedIn} {...props} notify={this.notify}/>}
                         />
-                        <Route path="/event/tickets/:id" component={TicketsPage}/>
+                        <Route
+                            path="/event/tickets/:id"
+                            render={props => <TicketsPage isAdmin={isAdmin} loggedIn={loggedIn} {...props} notify={this.notify}/>}
+                        />
                         <Route component={NotFound}/>
                     </Switch>
                 </main>

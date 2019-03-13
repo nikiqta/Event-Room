@@ -63,7 +63,22 @@ async function createEvent(data) {
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-           ...data
+            ...data
+        })
+    });
+    return await res.json();
+}
+
+async function createTicket(data) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/ticket/create`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            ...data
         })
     });
     return await res.json();
@@ -80,7 +95,7 @@ async function fetchUserEvents(userId) {
     return await res.json();
 }
 
-async function fetchEvent(eventId){
+async function fetchEvent(eventId) {
     const token = localStorage.getItem('token');
     const res = await fetch(`${host}feed/event/${eventId}`, {
         headers: {
@@ -103,4 +118,15 @@ async function fetchUserTickets(userId) {
 }
 
 
-export {userRegister, userLogin, fetchSearchPage, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets, fetchPendingEvents, fetchEvent };
+export {
+    userRegister,
+    userLogin,
+    fetchSearchPage,
+    fetchApprovedEvents,
+    createEvent,
+    fetchUserEvents,
+    fetchUserTickets,
+    fetchPendingEvents,
+    fetchEvent,
+    createTicket
+};

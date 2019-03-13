@@ -33,17 +33,6 @@ const Header = props => {
               </NavLink>
             </li>
           )}
-          {isAdmin && (
-            <li className="nav-item">
-              <NavLink
-                to="/events"
-                className="nav-link"
-                className="nav-link"
-              >
-                Events
-              </NavLink>
-            </li>
-          )}
           {loggedIn && !isAdmin && (
             <li className="nav-item">
               <NavLink

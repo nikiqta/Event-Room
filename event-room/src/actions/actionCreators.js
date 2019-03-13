@@ -8,7 +8,9 @@ import {
     FETCH_USER_EVENTS,
     FETCH_USER_TICKETS,
     CREATE_EVENT,
-    AJAX_ERROR, FETCH_EVENT_BY_ID
+    AJAX_ERROR,
+    FETCH_EVENT_BY_ID,
+    CREATE_TICKET
 } from './actionTypes';
 
 export function getEvent(data) {
@@ -69,6 +71,13 @@ export function getPendingEvents(data) {
 export function createNewEvent(data) {
     return {
         type: CREATE_EVENT,
+        data
+    }
+}
+
+export function createNewTicket(data) {
+    return {
+        type: CREATE_TICKET,
         data
     }
 }

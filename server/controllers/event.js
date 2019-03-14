@@ -83,7 +83,9 @@ module.exports = {
   },
   editEvent: (req, res, next) => {
     const eventObj = req.body;
-    const { id } = req.body;
+    const { id } = req.params;
+    console.log(req.params);
+    console.log(req.body);
     Event.findByIdAndUpdate(id, {
       ...eventObj
     })

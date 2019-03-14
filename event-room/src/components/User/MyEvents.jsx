@@ -18,7 +18,7 @@ class MyEvents extends Component {
 
   render() {
       const userEvents = this.props.userEvents || [];
-      const { isAdmin, loggedIn } = this.props;
+      const { isAdmin, loggedIn, removeEvent } = this.props;
       return (
           <div className="container">
               <div className="row space-top">
@@ -33,6 +33,7 @@ class MyEvents extends Component {
                           loggedIn={loggedIn}
                           isAdmin={isAdmin}
                           events={ userEvents }
+                          removeEvent={removeEvent}
                       />
                       }
 

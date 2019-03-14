@@ -28,7 +28,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { loggedIn, isAdmin } = this.props;
+    const { loggedIn, isAdmin, removeEvent } = this.props;
     const events = this.props.events.events || [];
     return (
       <div className="container">
@@ -59,7 +59,9 @@ class HomePage extends Component {
                 isForApproval={this.state.isForApproval}
                 loggedIn={loggedIn}
                 isAdmin={isAdmin}
-                events={ events }/>
+                events={ events }
+                removeEvent={removeEvent}
+                />
           </div>
         </div>
       </div>

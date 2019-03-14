@@ -10,8 +10,10 @@ import {
     CREATE_EVENT,
     AJAX_ERROR,
     FETCH_EVENT_BY_ID,
-    CREATE_TICKET
+    CREATE_TICKET,
+    EDIT_EVENT
 } from './actionTypes';
+import { func } from 'prop-types';
 
 export function getEvent(data) {
     return {
@@ -71,6 +73,13 @@ export function getPendingEvents(data) {
 export function createNewEvent(data) {
     return {
         type: CREATE_EVENT,
+        data
+    }
+}
+
+export function editEvent(data) {
+    return {
+        type: EDIT_EVENT,
         data
     }
 }

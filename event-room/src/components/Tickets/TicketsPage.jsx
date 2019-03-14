@@ -38,7 +38,6 @@ class TicketsPage extends Component {
             relatedEvent: this.props.event.eventDetails._id,
             seat: seatNumber
         };
-        debugger;
         this.props.createTicket(ticketData);
     }
 

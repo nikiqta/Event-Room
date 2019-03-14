@@ -1,4 +1,4 @@
-import { fetchEvent, fetchSearchPage, fetchPendingEvents, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets } from "../api/remote";
+import { fetchEditEvent, fetchEvent, fetchSearchPage, fetchPendingEvents, fetchApprovedEvents, createEvent, fetchUserEvents, fetchUserTickets } from "../api/remote";
 import {
      ajaxError,
     getApprovedEvents,
@@ -6,7 +6,8 @@ import {
     createNewEvent,
     getUserEvents,
     getUserTickets,
-    getEvent
+    getEvent,
+    editEvent
 } from "./actionCreators";
 
 export function getEventThunk(eventId) {
@@ -58,6 +59,17 @@ export function createEventThunk(props) {
         try {
             const data = await createEvent(props);
             dispatch(createNewEvent(data));
+        } catch (error) {
+            dispatch(ajaxError(error));
+        }
+    }
+}
+
+export function editEventThunk(props, eventId) {
+    return async (dispatch) => {
+        try {
+            const data = await fetchEditEvent(props, eventId);
+            dispatch(editEvent(data));
         } catch (error) {
             dispatch(ajaxError(error));
         }

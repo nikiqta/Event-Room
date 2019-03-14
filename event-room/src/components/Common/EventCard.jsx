@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 const EventCard = props => {
     const { isForApproval } = props;
-    const {loggedIn, isAdmin} = props;
+    const {loggedIn, isAdmin, removeEvent} = props;
     const userId = localStorage.getItem('userId');
     const {
         name,
@@ -48,15 +49,19 @@ const EventCard = props => {
                     !isForApproval && !approvedEvent &&
                 <div className="card-body text-center">
                     <Link to={`/details/${'approved'}/${id}`} className="btn btn-info m-1">Details</Link>
-                    {isUserCreator  && <Link to={`/delete/${id}`} className="btn btn-danger m-1">Delete</Link>}
-                    {isUserCreator  && <Link to={`/edit/${id}`} className="btn btn-warning m-1">Edit</Link>}
+                    {isUserCreator  && <button 
+                    onClick={() => removeEvent(id)}
+                    className="btn btn-danger m-1">Delete</button>}
+                    {isUserCreator  && <Link to={`/edit/event/${id}`} className="btn btn-warning m-1">Edit</Link>}
                 </div> }
                 {
                     isForApproval &&
                     <div className="card-body text-center">
                         <Link to={`/details/${'unapproved'}/${id}`} className="btn btn-info m-1">Details</Link>
                         <Link to={`/approve/event/${id}`} className="btn btn-success m-1">Approve</Link>
-                        <Link to={`/remove/event/${id}`} className="btn btn-danger m-1">Remove</Link>
+                        <button 
+                    onClick={() => removeEvent(id)}
+                    className="btn btn-danger m-1">Delete</button>
                     </div>
                 }
                 { approvedEvent && !isAdmin &&

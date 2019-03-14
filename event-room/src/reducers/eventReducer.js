@@ -1,4 +1,4 @@
-import { FETCH_APPROVED_EVENTS, FETCH_PENDING_EVENTS, CREATE_EVENT, FETCH_USER_EVENTS, FETCH_USER_TICKETS, FETCH_EVENT_BY_ID } from './../actions/actionTypes';
+import { EDIT_EVENT, FETCH_APPROVED_EVENTS, FETCH_PENDING_EVENTS, CREATE_EVENT, FETCH_USER_EVENTS, FETCH_USER_TICKETS, FETCH_EVENT_BY_ID } from './../actions/actionTypes';
 
 // const defaultState = {
 //      events: [],
@@ -17,6 +17,8 @@ export default function eventReducer(state = {}, action) {
             return Object.assign({}, state, {pendingEvents: action.data.events});
         case CREATE_EVENT:  
        return Object.assign({}, state, {createdEvent: action.data});
+       case EDIT_EVENT:  
+       return Object.assign({}, state, {editedEvent: action.data});
        case FETCH_USER_EVENTS:
        return Object.assign({}, state, {userEvents: action.data.events});
         case FETCH_EVENT_BY_ID:

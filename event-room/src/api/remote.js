@@ -69,6 +69,21 @@ async function createEvent(data) {
     return await res.json();
 }
 
+async function fetchEditEvent(data, eventId) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/event/edit/${eventId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            ...data
+        })
+    });
+    return await res.json();
+}
+
 async function createTicket(data) {
     const token = localStorage.getItem('token');
     const res = await fetch(`${host}feed/ticket/create`, {
@@ -128,5 +143,6 @@ export {
     fetchUserTickets,
     fetchPendingEvents,
     fetchEvent,
-    createTicket
+    createTicket,
+    fetchEditEvent
 };

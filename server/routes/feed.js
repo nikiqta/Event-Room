@@ -52,7 +52,7 @@ router.post('/event/create', isAuth, [
         .isEmpty()
         .withMessage('Please enter an event image url')
 ], eventController.createEvent);
-router.post('/event/edit', isAuth, [
+router.post('/event/edit/:id', isAuth, [
     body('name')
         .trim()
         .not()

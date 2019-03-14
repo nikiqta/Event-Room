@@ -25,7 +25,7 @@ class PendingApproval extends Component{
 
     render() {
         const pendingEvents = this.props.pendingEvents || [];
-        const { isAdmin, loggedIn } = this.props;
+        const { isAdmin, loggedIn, removeEvent } = this.props;
         return (
             <div className="container">
                 <div className="row space-top">
@@ -40,7 +40,9 @@ class PendingApproval extends Component{
                                     isForApproval={this.state.isForApproval}
                                     isAdmin={ isAdmin }
                                     loggedIn={loggedIn}
-                                    events={ pendingEvents }/>
+                                    events={ pendingEvents }
+                                    removeEvent={removeEvent}
+                                    />
                             </div>
                         }
                     </div>

@@ -14,3 +14,5 @@ export const FETCH_USER_TICKETS = 'FETCH_USER_TICKETS';
 
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const CREATE_TICKET = 'CREATE_TICKET';
+
+export const EDIT_EVENT = 'EDIT_EVENT';

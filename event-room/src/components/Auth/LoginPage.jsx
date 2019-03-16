@@ -4,11 +4,20 @@ import { loginThunk } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import {
+  USERNAME_FIELD_ERROR,
+  PASSWORD_VALIDATION,
+  LOGIN_CHECK_MESSAGE,
+  usernameValidation,
+  passwordValidation,
+  loginCheck, emailValidation, EMAIL_FIELD_ERROR
+} from './../../utils/validations';
+
 class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      username: this.props.registeredUserData.username || '',
       password: ''
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -21,7 +30,14 @@ class LoginPage extends Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    this.props.login(this.state.username, this.state.password);
+    const noValidationErrors = loginCheck(this.state.username, this.state.password);
+
+    if(noValidationErrors) {
+      this.props.login(this.state.username, this.state.password);
+    } else {
+      this.props.notify(LOGIN_CHECK_MESSAGE, 'error');
+    }
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -34,6 +50,8 @@ class LoginPage extends Component {
   }
 
   render() {
+    const { registeredUserData } = this.props;
+
     return (
       <Fragment>
         <div className="form-wrapper">
@@ -45,11 +63,11 @@ class LoginPage extends Component {
                 id="username"
                 type="text"
                 name="username"
-                value={this.state.username}
+                value={ this.state.username }
                 label="Username"
                 onChange={this.onChangeHandler}
-                error={false}
-                helperText={false}
+                error={usernameValidation(this.state.username)}
+                helperText={usernameValidation(this.state.username) ? USERNAME_FIELD_ERROR : ''}
               />
             </div>
             <div className="form-group">
@@ -61,8 +79,8 @@ class LoginPage extends Component {
                 value={this.state.password}
                 label="Password"
                 onChange={this.onChangeHandler}
-                error={false}
-                helperText={false}
+                error={passwordValidation(this.state.password)}
+                helperText={passwordValidation(this.state.password) ? PASSWORD_VALIDATION : ''}
               />
             </div>
             <input type="submit" value="Login" />
@@ -75,6 +93,7 @@ class LoginPage extends Component {
 
 function mapStateToProps(state) {
   return {
+    registeredUserData: state.register,
     user: state.login
   };
 }

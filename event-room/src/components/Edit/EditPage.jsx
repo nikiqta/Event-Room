@@ -4,7 +4,22 @@ import { withRouter } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
 import {getEventThunk, editEventThunk} from '../../actions/eventActions';
 
-//import { editEventThunk } from '../../actions/eventActions';
+import {
+    EVENT_NAME_ERROR,
+    EVENT_DATE_ERROR,
+    TICKET_PRICE_ERROR,
+    AVAILABLE_SEATS_ERROR,
+    IMAGE_URL_ERROR,
+    DESCRIPTION_ERROR,
+    CREATE_EVENT_CHECK,
+    eventNameValidation,
+    eventDateValidation,
+    eventTicketPriceValidation,
+    eventAvailableSeatsValidation,
+    eventImageUrlValidation,
+    eventDescriptionValidation,
+    createCheck
+} from './../../utils/validations';
 
 class EditPage extends Component {
   constructor(props) {
@@ -85,8 +100,8 @@ async onSubmitHandler(e) {
                 value={this.state.name}
                 label="Name"
                 onChange={this.onChangeHandler}
-                error={false}
-                helperText={false}
+                error={eventNameValidation(this.state.name)}
+                helperText={eventNameValidation(this.state.name) ? EVENT_NAME_ERROR : ''}
               />
             </div>
             <div className="form-group col-6">
@@ -102,8 +117,8 @@ async onSubmitHandler(e) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                error={false}
-                helperText={false}
+                error={eventDateValidation(this.state.eventDate)}
+                helperText={eventDateValidation(this.state.eventDate) ? EVENT_DATE_ERROR : '' }
               />
             </div>
             <div className="form-group col-6">
@@ -115,8 +130,8 @@ async onSubmitHandler(e) {
                 value={this.state.ticketPrice}
                 label="Ticket Price"
                 onChange={this.onChangeHandler}
-                error={false}
-                helperText={false}
+                error={eventTicketPriceValidation(this.state.ticketPrice)}
+                helperText={eventTicketPriceValidation(this.state.ticketPrice) ? TICKET_PRICE_ERROR : ''}
               />
             </div>
             <div className="form-group col-6">
@@ -128,8 +143,8 @@ async onSubmitHandler(e) {
                 value={this.state.availableSeats}
                 label="Available Seats"
                 onChange={this.onChangeHandler}
-                error={false}
-                helperText={false}
+                error={eventAvailableSeatsValidation(this.state.availableSeats)}
+                helperText={eventAvailableSeatsValidation(this.state.availableSeats) ? AVAILABLE_SEATS_ERROR : ''}
               />
             </div>
             <div className="form-group col-12">
@@ -142,8 +157,8 @@ async onSubmitHandler(e) {
                 value={this.state.imageUrl}
                 label="Image Url"
                 onChange={this.onChangeHandler}
-                error={false}
-                helperText={false}
+                error={eventImageUrlValidation(this.state.imageUrl)}
+                helperText={eventImageUrlValidation(this.state.imageUrl) ? IMAGE_URL_ERROR : ''}
               />
             </div>
           </div>
@@ -165,8 +180,8 @@ async onSubmitHandler(e) {
               value={this.state.description}
               label="Description"
               onChange={this.onChangeHandler}
-              error={false}
-              helperText={false}
+              error={eventDescriptionValidation(this.state.description)}
+              helperText={eventDescriptionValidation(this.state.description) ? DESCRIPTION_ERROR : ''}
             />
           </div>
           <input

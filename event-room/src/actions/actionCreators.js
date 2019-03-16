@@ -11,7 +11,9 @@ import {
     AJAX_ERROR,
     FETCH_EVENT_BY_ID,
     CREATE_TICKET,
-    EDIT_EVENT
+    EDIT_EVENT,
+    REMOVE_EVENT,
+    APPROVE_EVENT
 } from './actionTypes';
 import { func } from 'prop-types';
 
@@ -80,6 +82,20 @@ export function createNewEvent(data) {
 export function editEvent(data) {
     return {
         type: EDIT_EVENT,
+        data
+    }
+}
+
+export function removeEvent(data) {
+    return {
+        type: REMOVE_EVENT,
+        data
+    }
+}
+
+export function approveEvent(data) {
+    return {
+        type: APPROVE_EVENT,
         data
     }
 }

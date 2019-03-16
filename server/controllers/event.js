@@ -65,6 +65,24 @@ module.exports = {
         next(error);
       });
   },
+  approveEvent: (req, res, next) => {
+    const { id } = req.params;
+
+    Event.findByIdAndUpdate(id, {
+      status: 'Approved'
+    })
+        .then((data) => {
+          res.status(200).json({
+            message: 'Event Approved successfully!'
+          });
+        })
+        .catch(error => {
+          if (!error.statusCode) {
+            error.statusCode = 500;
+          }
+          next(error);
+        });
+  },
   createEvent: (req, res, next) => {
     const eventObj = req.body;
     Event.create(eventObj)
@@ -84,10 +102,9 @@ module.exports = {
   editEvent: (req, res, next) => {
     const eventObj = req.body;
     const { id } = req.params;
-    console.log(req.params);
-    console.log(req.body);
     Event.findByIdAndUpdate(id, {
-      ...eventObj
+      ...eventObj,
+      status: 'Waiting For Approval'
     })
       .then(() => {
         res.status(200).json({
@@ -102,7 +119,7 @@ module.exports = {
       });
   },
   removeEvent: (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
     Event.findByIdAndRemove(id)
       .then(event => {
         Comment.find({ relatedEvent: event._id })

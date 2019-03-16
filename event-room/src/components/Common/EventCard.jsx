@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import {Button} from '@material-ui/core';
 
 const EventCard = props => {
-    const { isForApproval } = props;
+    const {isForApproval, approveEvent} = props;
     const {loggedIn, isAdmin, removeEvent} = props;
     const userId = localStorage.getItem('userId');
     const {
@@ -47,24 +47,30 @@ const EventCard = props => {
                 </ul>
                 {
                     !isForApproval && !approvedEvent &&
-                <div className="card-body text-center">
-                    <Link to={`/details/${'approved'}/${id}`} className="btn btn-info m-1">Details</Link>
-                    {isUserCreator  && <button 
-                    onClick={() => removeEvent(id)}
-                    className="btn btn-danger m-1">Delete</button>}
-                    {isUserCreator  && <Link to={`/edit/event/${id}`} className="btn btn-warning m-1">Edit</Link>}
-                </div> }
+                    <div className="card-body text-center">
+                        <Link to={`/details/${'approved'}/${id}`} className="btn btn-info m-1">Details</Link>
+                        {isUserCreator && <button
+                            onClick={() => removeEvent(id)}
+                            className="btn btn-danger m-1">Delete</button>}
+                        {isUserCreator && <Link to={`/edit/event/${id}`} className="btn btn-warning m-1">Edit</Link>}
+                    </div>}
                 {
                     isForApproval &&
                     <div className="card-body text-center">
                         <Link to={`/details/${'unapproved'}/${id}`} className="btn btn-info m-1">Details</Link>
-                        <Link to={`/approve/event/${id}`} className="btn btn-success m-1">Approve</Link>
-                        <button 
-                    onClick={() => removeEvent(id)}
-                    className="btn btn-danger m-1">Delete</button>
+                        <button
+                            className="btn btn-success m-1"
+                            onClick={() => approveEvent(id)}
+                        >
+                            Approve
+                        </button>
+                        <button
+                            onClick={() => removeEvent(id)}
+                            className="btn btn-danger m-1">Delete
+                        </button>
                     </div>
                 }
-                { approvedEvent && !isAdmin &&
+                {approvedEvent && !isAdmin &&
                 <div className="font-weight-bold text-danger my-5"> Waiting For Approval!</div>
                 }
             </div>

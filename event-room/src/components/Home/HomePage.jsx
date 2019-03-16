@@ -8,7 +8,6 @@ class HomePage extends Component {
     super(props);
     this.state = {
       isForApproval: false,
-//      loggedIn: localStorage.getItem('username') !== '',
       query: ''
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);

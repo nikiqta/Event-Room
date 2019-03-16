@@ -23,14 +23,16 @@ router.post('/register',
             .trim()
             .not()
             .isEmpty()
-            .withMessage('Please enter first name')
-            .isLength({max: 20}),
+            .isLength({min: 2})
+            .isLength({max: 20})
+            .withMessage('Please enter first name'),
         body('lastName')
             .trim()
             .not()
             .isEmpty()
-            .withMessage('Please enter last name')
-            .isLength({max: 20}),
+            .isLength({min: 2})
+            .isLength({max: 20})
+            .withMessage('Please enter last name'),
         body('email')
             .isEmail()
             .withMessage('Please enter a valid email.'),

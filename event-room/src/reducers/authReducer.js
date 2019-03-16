@@ -4,6 +4,8 @@ export function registerReducer(state = {}, action) {
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, action.data);
+    case LOGIN:
+      return {};
     case AJAX_ERROR:
       return Object.assign({}, state, action.msg);
     default:

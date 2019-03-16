@@ -1,8 +1,25 @@
-import React, { Component, Fragment } from 'react';
-import { TextField } from '@material-ui/core';
-import { registerThunk } from '../../actions/authActions';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, {Component, Fragment} from 'react';
+import {TextField} from '@material-ui/core';
+import {registerThunk} from '../../actions/authActions';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import {
+    USERNAME_FIELD_ERROR,
+    EMAIL_FIELD_ERROR,
+    FIRST_NAME_VALIDATION,
+    LAST_NAME_VALIDATION,
+    PASSWORD_VALIDATION,
+    REPPASS_PASSWORD_MATCH_ERROR,
+    REGISTER_CHECK_MESSAGE,
+    usernameValidation,
+    emailValidation,
+    firstNameValidation,
+    lastNameValidation,
+    passwordValidation,
+    repeatPassValidation,
+    registerCheck
+} from './../../utils/validations';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -20,7 +37,7 @@ class LoginPage extends Component {
     }
 
     onChangeHandler(e) {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({[e.target.name]: e.target.value});
     }
 
     onSubmitHandler(e) {
@@ -32,12 +49,20 @@ class LoginPage extends Component {
             lastName: this.state.lastName,
             password: this.state.password
         };
-        this.props.register(data);
+
+        const noValidationErrors = registerCheck(data, this.state.repPass);
+
+        if (noValidationErrors) {
+            this.props.register(data);
+        } else {
+            this.props.notify(REGISTER_CHECK_MESSAGE, 'error');
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.user.success && this.props.user && prevProps.user) {
             this.props.notify(this.props.user.message, 'success');
+            this.props.notify('Please Log in!', 'success');
             this.props.history.push('/login');
         } else if (this.props.user.message && prevProps !== this.props) {
             this.props.notify(this.props.user.errors[0].msg, 'error');
@@ -59,8 +84,8 @@ class LoginPage extends Component {
                                 value={this.state.username}
                                 label="Username"
                                 onChange={this.onChangeHandler}
-                                error={false}
-                                helperText={false}
+                                error={usernameValidation(this.state.username)}
+                                helperText={usernameValidation(this.state.username) ? USERNAME_FIELD_ERROR : ''}
                             />
                         </div>
                         <div className="form-group">
@@ -72,8 +97,8 @@ class LoginPage extends Component {
                                 value={this.state.email}
                                 label="E-mail"
                                 onChange={this.onChangeHandler}
-                                error={false}
-                                helperText={false}
+                                error={emailValidation(this.state.email)}
+                                helperText={emailValidation(this.state.email) ? EMAIL_FIELD_ERROR : ''}
                             />
                         </div>
                         <div className="form-group">
@@ -85,8 +110,8 @@ class LoginPage extends Component {
                                 value={this.state.firstName}
                                 label="First Name"
                                 onChange={this.onChangeHandler}
-                                error={false}
-                                helperText={false}
+                                error={firstNameValidation(this.state.firstName)}
+                                helperText={firstNameValidation(this.state.firstName) ? FIRST_NAME_VALIDATION : ''}
                             />
                         </div>
                         <div className="form-group">
@@ -98,8 +123,8 @@ class LoginPage extends Component {
                                 value={this.state.lastName}
                                 label="Last Name"
                                 onChange={this.onChangeHandler}
-                                error={false}
-                                helperText={false}
+                                error={lastNameValidation(this.state.lastName)}
+                                helperText={lastNameValidation(this.state.lastName) ? LAST_NAME_VALIDATION : ''}
                             />
                         </div>
                         <div className="form-group">
@@ -111,8 +136,8 @@ class LoginPage extends Component {
                                 value={this.state.password}
                                 label="Password"
                                 onChange={this.onChangeHandler}
-                                error={false}
-                                helperText={false}
+                                error={passwordValidation(this.state.password)}
+                                helperText={passwordValidation(this.state.password) ? PASSWORD_VALIDATION : ''}
                             />
                         </div>
                         <div className="form-group">
@@ -124,11 +149,14 @@ class LoginPage extends Component {
                                 value={this.state.repPass}
                                 label="Repeat Password"
                                 onChange={this.onChangeHandler}
-                                error={false}
-                                helperText={false}
+                                error={repeatPassValidation(this.state.repPass, this.state.password)}
+                                helperText={repeatPassValidation(this.state.repPass, this.state.password) ? REPPASS_PASSWORD_MATCH_ERROR : ''}
                             />
                         </div>
-                        <input type="submit" value="Register" />
+                        <input
+                            type="submit"
+                            value="Register"
+                        />
                     </form>
                 </div>
             </Fragment>

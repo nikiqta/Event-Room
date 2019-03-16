@@ -30,6 +30,8 @@ router.post('/event/create', isAuth, [
         .trim()
         .not()
         .isEmpty()
+        .isLength({min: 3})
+        .isLength({max: 20})
         .withMessage('Please enter an event date'),
     body('ticketPrice')
         .trim()
@@ -45,6 +47,8 @@ router.post('/event/create', isAuth, [
         .trim()
         .not()
         .isEmpty()
+        .isLength({min: 3})
+        .isLength({max: 300})
         .withMessage('Please enter a description'),
     body('imageUrl')
         .trim()
@@ -91,7 +95,7 @@ router.post('/event/edit/:id', isAuth, [
         .isEmpty()
         .withMessage('Please enter an event image url')
 ], eventController.editEvent);
-router.delete('/event/delete', isAuth, eventController.removeEvent);
+router.delete('/event/delete/:id', isAuth, eventController.removeEvent);
 
 router.post('/comments', isAuth, commentController.getEventComments);
 router.post('/comment/create', isAuth, commentController.createComment);
@@ -110,5 +114,5 @@ router.post('/ticket/create', isAuth, [
         .isEmpty()
         .withMessage('Please choose a seat'),
 ], ticketController.createTicket);
-
+router.post('/event/approve/:id', isAuth, eventController.approveEvent);
 module.exports = router;

@@ -24,21 +24,21 @@ class TicketsPage extends Component {
         this.props.getEvent(id);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.ticketInfo.ticket) {
-            this.props.notify(this.props.ticketInfo.ticket.message, 'success');
-            this.props.history.push('/myTickets');
-        }
-    }
-
-    onSeatClickHandler(seatNumber) {
+async    onSeatClickHandler(seatNumber) {
         const ticketData = {
             owner: localStorage.getItem('userId'),
             paymentCardNumber: this.state.cardNumber,
             relatedEvent: this.props.event.eventDetails._id,
             seat: seatNumber
         };
-        this.props.createTicket(ticketData);
+
+        try {
+            this.props.createTicket(ticketData);
+            this.props.notify('Ticket Created successfully!', 'success');
+            this.props.history.push('/myTickets');
+        } catch (error) {
+            this.props.notify(error.message, 'error');
+        }
     }
 
     onChangeHandler(e) {
@@ -55,15 +55,17 @@ class TicketsPage extends Component {
     render() {
         const {eventDetails} = this.props.event || [];
         const {showSeats} = this.state;
-        const {loggedIn, isAdmin} = this.props;
+        const {loggedIn, isAdmin, userId} = this.props;
 
         let seats = [];
-
+        let userHasTicket = false;
         if (eventDetails && showSeats) {
             const reservedSeats = eventDetails.reservedSeats;
             for (let i = 1; i <= eventDetails.availableSeats; i++) {
                 seats.push(i)
             }
+
+            userHasTicket = eventDetails.participants.includes(userId);
         }
         return (
             <div className="container text-center mx-auto my-5">
@@ -81,7 +83,10 @@ class TicketsPage extends Component {
                     />
                 </div>
                 <ul className="col-12">
-                    {showSeats && eventDetails && seats.map((s, index) => {
+                    { userHasTicket &&
+                         <h3 style={{color: 'red'}}>You have already got a ticket for this event!</h3>
+                    }
+                    { !userHasTicket && showSeats && eventDetails && seats.map((s, index) => {
                         return (<Ticket
                             key={index * 13}
                             seatNumber={s}

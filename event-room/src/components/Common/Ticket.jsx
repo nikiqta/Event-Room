@@ -3,6 +3,7 @@ import React from 'react';
 const Ticket = (props) => {
     const { seatNumber, reservedSeats, onSeatClicked } = props;
     const isReserved = reservedSeats.includes(seatNumber.toString());
+
   return (
       <li className="seat">
           {!isReserved &&

@@ -84,6 +84,19 @@ async function fetchEditEvent(data, eventId) {
     return await res.json();
 }
 
+async function fetchRemoveEvent (eventId) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/event/delete/${eventId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return await res.json();
+}
+
+
 async function createTicket(data) {
     const token = localStorage.getItem('token');
     const res = await fetch(`${host}feed/ticket/create`, {
@@ -102,6 +115,18 @@ async function createTicket(data) {
 async function fetchUserEvents(userId) {
     const token = localStorage.getItem('token');
     const res = await fetch(`${host}feed/user/events/${userId}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    return await res.json();
+}
+
+async function fetchApproveEvent(eventId) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${host}feed/event/approve/${eventId}`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -144,5 +169,7 @@ export {
     fetchPendingEvents,
     fetchEvent,
     createTicket,
-    fetchEditEvent
+    fetchEditEvent,
+    fetchRemoveEvent,
+    fetchApproveEvent
 };

@@ -1,4 +1,4 @@
-Ticket Room
+Event Room
 FSD
 
 Register Page

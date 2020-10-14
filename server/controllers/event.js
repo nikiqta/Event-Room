@@ -1,3 +1,5 @@
+const requestIp = require('request-ip');
+
 const Event = require('../models/EventSchema');
 const Comment = require('../models/CommentSchema');
 const Ticket = require('../models/TicketSchema');
@@ -34,6 +36,9 @@ module.exports = {
       });
   },
   getApprovedEvents: (req, res, next) => {
+    const clientIp = requestIp.getClientIp(req);
+
+    console.log(clientIp);
     Event.find()
       .where('status')
       .ne('Waiting For Approval')

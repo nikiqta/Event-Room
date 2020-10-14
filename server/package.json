@@ -16,6 +16,7 @@
     "express-validator": "5.3.1",
     "jsonwebtoken": "8.4.0",
     "mongoose": "5.4.7",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "request-ip": "^2.1.3"
   }
 }
